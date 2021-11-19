@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class Todo extends Controller
 {
+    
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +25,10 @@ class Todo extends Controller
      */
     public function index()
     {
+      
+        
         $todos = DB::table('todos')->get();
-        return view('app', ['todos' => $todos]);
+        return view('home', ['todos' => $todos]);
     }
 
     /**
@@ -25,7 +38,7 @@ class Todo extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**

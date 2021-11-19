@@ -83,7 +83,18 @@ class Todo extends Controller
      */
     public function update(Request $request, $id)
     {
-    //
+    // validate the form
+    $request->validate([
+        'todo' => 'required|max:200'
+    ]);
+
+    // update the data
+    DB::table('todos')->where('id', $id)->update([
+        'todo' => $request->todo
+    ]);
+
+    // redirect
+    return redirect('/')->with('status', 'todo updated!');
 }
 
 
@@ -95,6 +106,9 @@ class Todo extends Controller
      */
     public function destroy($id)
     {
-       //
+        DB::table('todos')->where('id', $id)->delete();
+
+        // redirect
+        return redirect('/')->with('status', 'todo removed!');
         }
 }

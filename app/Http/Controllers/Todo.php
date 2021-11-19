@@ -14,7 +14,8 @@ class Todo extends Controller
      */
     public function index()
     {
-        //
+        $todos = DB::table('todos')->get();
+        return view('app', ['todos' => $todos]);
     }
 
     /**
@@ -35,7 +36,20 @@ class Todo extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate the form
+        $request->validate([
+            'todo' => 'required|max:200',
+            'due_date' => 'required'
+        ]);
+    
+        // store the data
+        DB::table('todos')->insert([
+            'todo' => $request->todo,
+            'due_date'=> $request->due_date
+        ]);
+    
+        // redirect
+        return redirect('/')->with('status', 'todo added!');
     }
 
     /**
@@ -69,8 +83,8 @@ class Todo extends Controller
      */
     public function update(Request $request, $id)
     {
-   //
-    }
+    //
+}
 
 
     /**
@@ -81,6 +95,6 @@ class Todo extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+       //
+        }
 }

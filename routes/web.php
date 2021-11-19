@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [Todo::class, 'index']);
+Route::post('/todos', [Todo::class, 'store']);
 
 Auth::routes();
 
